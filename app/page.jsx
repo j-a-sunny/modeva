@@ -1,13 +1,117 @@
 import Image from "next/image";
 import Link from "next/link";
 import Hero from "./components/Hero";
+import OutfitWomen from "./components/OutfitWomen";
+import Service from "./components/Service";
 
 
 export default function Home() {
   return (
     <>
-    <Hero/>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur nesciunt ratione quasi quos rerum asperiores laborum quis omnis eligendi provident dolor reiciendis, corporis accusantium quod explicabo. Assumenda itaque non placeat inventore cupiditate vero provident ex, modi porro reprehenderit, odio similique, fuga asperiores numquam officiis incidunt quae totam dolores? Pariatur id debitis nemo commodi impedit similique in est, autem eveniet vitae ipsum, facilis voluptas officiis reprehenderit facere qui velit quos corrupti sapiente. Vero, a. Ad maxime minima sunt eum aliquam libero laboriosam pariatur, rem vel non illo ratione perferendis! Assumenda ducimus consectetur sint quasi sapiente explicabo! Harum asperiores odit, laudantium voluptate suscipit nihil exercitationem nulla rem numquam dolores eaque alias eum similique atque consectetur veniam doloribus ex accusantium iusto laboriosam amet unde. Obcaecati unde dicta cumque, sint accusantium sapiente, necessitatibus incidunt sunt dolorum est hic nostrum vero exercitationem reprehenderit iusto explicabo quod quasi accusamus recusandae fugiat molestiae temporibus! Qui assumenda necessitatibus architecto dolore nemo blanditiis, expedita culpa officiis. Reiciendis distinctio laboriosam voluptatum quidem consequatur officiis cum aspernatur? Ex corporis harum, voluptas ipsam eligendi magnam doloribus distinctio modi tempora tenetur rem quod aut! Similique qui unde at eos dolorum, quasi in est doloribus voluptatibus accusantium, laboriosam obcaecati rem provident omnis nostrum nemo aliquid! Id accusamus accusantium fugiat laudantium obcaecati aperiam, incidunt culpa? Soluta nesciunt totam iste veritatis accusantium corporis ipsam, amet rerum cumque harum cum expedita error iure nihil debitis alias qui quam saepe numquam, assumenda exercitationem explicabo molestias ratione? Libero vel a, sunt voluptates eum perspiciatis inventore, praesentium voluptatem iure ratione dicta amet dolorum eligendi mollitia rem, provident veniam excepturi? Dolores quibusdam, nesciunt veniam id animi aut molestiae sint alias optio voluptatibus sequi, consequatur praesentium ipsum amet obcaecati reiciendis labore excepturi quasi quas sit aperiam nobis aspernatur beatae sunt. Est illo illum quos dolores odio aut quam qui voluptate totam laboriosam facilis cumque itaque et, architecto eius molestias sapiente. Inventore consequuntur veritatis vero, dolores voluptatum quia error accusamus minus laborum excepturi nulla iusto debitis nemo officia facere quis at voluptatem id deserunt accusantium itaque. Perspiciatis, eaque officiis tenetur corrupti modi odio labore, culpa, voluptates fugiat fugit pariatur repudiandae quia sunt illo? Eum numquam iusto nemo cupiditate, nisi quaerat, sapiente vero assumenda velit laudantium earum minima, dolorem id voluptas aperiam culpa illo? Vel iste reprehenderit eaque. Deserunt perspiciatis aperiam ipsam quas asperiores inventore sapiente adipisci quis accusantium est provident rem ullam exercitationem quaerat, debitis perferendis recusandae. Odio consequatur officia provident vel adipisci nam minus sunt molestias. Rerum tenetur repellat itaque nesciunt excepturi labore sunt repellendus laudantium sapiente qui nulla, maxime cumque cum vitae eum non, est a quis perferendis, laborum exercitationem nihil. Facilis non voluptas quod at excepturi ipsa, minus doloribus ad impedit dignissimos nisi architecto aliquam deserunt vitae expedita molestias aut dolorum quos recusandae veritatis. Reiciendis laborum ipsa voluptatum voluptas alias vitae consequatur nemo incidunt maiores earum perspiciatis maxime debitis quod asperiores quia esse fugiat rerum sequi recusandae repellendus, possimus ex optio amet? A dicta explicabo commodi quis velit perspiciatis inventore amet ab cum quo illum doloribus, ducimus architecto illo optio! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, excepturi? Eius natus sequi dolores nulla omnis nemo dignissimos voluptatum voluptates modi quisquam, consectetur sunt! Voluptatum pariatur, illum explicabo voluptate quas voluptas obcaecati. Fuga odio iusto vero corporis impedit nemo quibusdam debitis delectus id necessitatibus. Voluptate, fugit maiores. Minima itaque quidem accusamus est, tenetur, facere asperiores consectetur veniam dicta non provident ipsum, possimus nam et? Reiciendis, id asperiores cum animi maiores adipisci. Provident autem earum, rem qui ullam ducimus, doloribus, quam nobis quas dolores tenetur aut vitae obcaecati numquam exercitationem praesentium delectus illum vel corrupti pariatur. Explicabo quo dolorum cum vel! Magnam id repudiandae quisquam repellendus aspernatur, quam earum corrupti odit deserunt sed velit in qui. Earum nulla voluptas aliquam culpa officiis debitis exercitationem non adipisci facilis! Doloremque quas nisi quos maiores provident et expedita delectus fugiat alias reprehenderit blanditiis omnis odio, cum aperiam. Inventore odio magnam odit soluta ipsa amet accusantium, recusandae id tenetur quis autem quisquam tempore assumenda ipsam, eum earum hic, natus neque repellendus officia architecto nesciunt? Sequi sed saepe quam optio, similique non ullam animi, voluptatum rerum ea eaque ad quo, laborum totam? Consectetur exercitationem, explicabo nam autem, perferendis dolorum doloribus ut obcaecati non quod quia distinctio provident excepturi aut maxime! Voluptas minus maiores natus quisquam eum consequatur hic ipsa officiis iusto repellat tempore, sunt eaque unde quos magnam modi officia id tenetur mollitia quia nesciunt labore, placeat ad! Officia dignissimos sit alias amet necessitatibus. Expedita neque necessitatibus exercitationem illum vitae numquam dolorum saepe quos magni dignissimos velit deleniti, totam voluptates. Expedita cum nisi odio, ut id voluptas error eius nobis delectus perferendis rem eos consequatur deleniti dolorum? Excepturi minima, velit earum, repellendus, facilis eum reiciendis illum a placeat in exercitationem rem ipsa quae consectetur dolore. Sed necessitatibus, culpa tempore quo dolor consequuntur incidunt debitis deleniti amet? Recusandae odio nesciunt enim? Hic voluptas quae dolorem, facilis soluta nam numquam nulla cupiditate fugiat amet, dolor culpa, adipisci architecto vero asperiores! Ad quis necessitatibus totam, deleniti consequatur esse laboriosam nam aut sint dolor corporis quam, reprehenderit delectus placeat alias! Ab ducimus at quos recusandae, temporibus minima rem quisquam deserunt autem praesentium adipisci quae accusamus aut provident dolorem consectetur quidem aperiam laudantium delectus. Inventore dolorem tempora eius quasi adipisci velit minus obcaecati maxime, nobis cupiditate doloremque, ut exercitationem voluptate, voluptatibus voluptatum temporibus vero earum? Vel molestiae velit repellendus voluptates quisquam, nobis laudantium animi odit? Esse eveniet praesentium itaque commodi ipsa nemo provident iusto atque natus fugiat exercitationem iure ut, quae eligendi nostrum distinctio illo officia maiores impedit autem obcaecati perspiciatis voluptatem? Culpa porro non incidunt expedita tenetur in officia neque, obcaecati soluta cumque corrupti necessitatibus placeat optio itaque commodi nulla exercitationem odio accusamus modi? Ea magni est expedita voluptatibus optio magnam! Placeat porro nam molestias maiores repellat, distinctio pariatur unde quia sed nesciunt impedit quasi tempore, mollitia quibusdam aut, amet similique nulla corporis asperiores facere est. Officiis saepe asperiores optio voluptas porro pariatur consectetur repudiandae quidem commodi consequuntur. Incidunt aliquid asperiores officia nesciunt minus, dolorem, modi nostrum rerum quae consectetur tempora illo architecto veritatis repudiandae provident ab voluptates corrupti numquam! Quidem blanditiis deleniti rerum reiciendis dolor, nostrum nobis iste cumque veritatis quae recusandae velit accusamus in aliquam nam sit accusantium dolorum vel laboriosam, neque laudantium magnam incidunt. Provident impedit, ad, ea sunt tenetur harum exercitationem voluptates non corrupti repellat velit recusandae nemo consequuntur magni quae eum inventore fuga autem consectetur cum, reprehenderit ab saepe doloribus! Officiis sequi nemo in rerum, sint facilis, illum eos nesciunt, sunt quibusdam itaque provident libero ipsa fugiat quisquam cum rem. Harum rem eum ad? Blanditiis enim autem laboriosam, natus beatae expedita illum hic voluptas repellendus magnam! Mollitia nemo dicta voluptate itaque eligendi error id facere assumenda, vitae voluptates. Voluptatem aperiam ad minus maxime, quam, debitis distinctio odio corrupti cumque deleniti sapiente delectus minima officia molestiae aut doloremque ea, quas quae similique nam nulla hic? Culpa dignissimos saepe distinctio nulla, inventore blanditiis voluptatibus sit corrupti magnam, dolores, ducimus delectus aliquam. Iusto quisquam doloremque iste magni repellendus illo minima. Corrupti, placeat blanditiis qui explicabo consectetur veniam voluptatum rerum maxime quas earum dignissimos laborum, tempora assumenda, expedita corporis neque nihil minima fugiat fugit repudiandae consequatur minus! Numquam impedit tempore odio, provident laudantium ea ut ipsa illo officiis doloremque et deserunt magni eum accusamus omnis debitis aliquid minus obcaecati, pariatur blanditiis. Asperiores provident reprehenderit, sit magni ipsa id dolore vero, quam consectetur rem molestias quasi voluptates error omnis obcaecati quod minus quaerat? Dignissimos itaque perspiciatis iusto soluta architecto, magnam neque voluptate tempora enim, ipsam modi sit quidem vitae aliquid minus culpa, magni dolor veniam optio sunt adipisci. Nisi, molestiae impedit. Blanditiis quidem, maiores libero, alias eos explicabo assumenda corporis illum perferendis nulla quod modi corrupti labore esse cumque earum nostrum officiis et culpa laboriosam inventore fuga. Cum accusamus excepturi eaque enim rerum. Animi fugiat sequi delectus facere ab ducimus. Dolorum rerum atque nostrum quod blanditiis magni eveniet natus distinctio harum, expedita ullam temporibus consequuntur, corporis voluptatibus, aliquam sint deleniti accusantium cum fugit et vero unde omnis non. Eos voluptates odio reprehenderit perferendis odit obcaecati optio cum unde non ducimus explicabo repudiandae sunt molestias minus provident expedita atque qui illum, ratione, ad ipsum. Officiis nam illum vero sequi, molestiae exercitationem perspiciatis nulla dolor unde atque voluptate iste accusantium aliquam dicta natus corporis consequuntur similique. Sed eveniet numquam autem amet totam animi, molestias praesentium maiores, mollitia hic dicta accusamus ipsum labore eum voluptatem adipisci assumenda, odit excepturi quam magni. Incidunt recusandae quis suscipit nobis et, sapiente autem magni repellendus necessitatibus tempora placeat. Debitis reprehenderit eum, nisi quo iusto laudantium nemo eos velit quas magnam autem facere voluptatibus suscipit ipsam quis itaque rerum error. Iure reiciendis dolor in nesciunt nihil quae incidunt corrupti quidem dolorem? Aperiam est, ipsum cupiditate consectetur rerum asperiores distinctio iste qui commodi sit! Laudantium alias sequi cum itaque exercitationem id atque at pariatur, quam libero necessitatibus illum, placeat totam incidunt sed, magnam harum eum quibusdam commodi voluptates nobis nam? Dicta totam rem vitae. Temporibus explicabo minima alias vero consequuntur, eum voluptates quam quis reprehenderit, eligendi eius mollitia totam. </p>
+      <div className="w-full h-screen bg-[url('/heroBanner.png')] bg-cover bg-center" >
+
+        <div className="container flex flex-col h-full items-center">
+          <div className="flex h-full w-full ">
+            {/* banner text part start */}
+            <div className="flex flex-col px-4 h-full">
+
+              {/* banner text part */}
+              <div
+                id="bannerText"
+                className="text-white h-full flex flex-col justify-center"
+              >
+                <h2 className="font-second font-normal text-[16px]">
+                  MADE IN BANGLADESH, DEDICATED TO BANGLADESH
+                </h2>
+                <h1 className="font-prime font-medium text-[76px]">
+                  DISCOVER THE ART OF DRESSING UP
+                </h1>
+
+              </div>
+            </div>
+            {/* banner text part end */}
+            
+
+            {/* banner product part start*/}
+            <div
+              id="bannerProduct"
+              className={
+                "w-1/3 self-end flex flex-col " +
+                "gap-y-[23px] justify-end items-end h-full"
+              }
+            >
+
+              <div
+                id="singleProduct"
+                className="flex justify-end bg-white h-40">
+                <div
+                  id="singProdImg"
+                  className="">
+                  <Image
+                    src="/slim-fit-wool-blazer.png"
+                    alt="Hero Image"
+                    width={200}
+                    height={200}
+                    className="h-full w-[200px] overflow-hidden object-cover object-top"
+                  />
+                </div>
+                <div
+                  id="singProdInfo"
+                  className="flex flex-col  p-4 bg-white"
+                >
+                  <div>
+                    <h3 className="font-prime font-normal text-[28px] leading-[36px] text-dark-gray capitalize">
+                      Slim-fit wool blazer
+                    </h3>
+                    <p className="font-second font-normal text[16px] text-light-gray">£57.40</p>
+                  </div>
+                  <p className="font-second font-normal text-[14px] mt-auto text-dark-gray">shop now</p>
+                </div>
+              </div>
+
+
+              <div
+                id="singleProduct"
+                className="flex flex-row-reverse justify-end bg-white h-40">
+                <div
+                  id="singProdImg"
+                  className="">
+                  <Image
+                    src="/ivory-frame-jeans.png"
+                    alt="Hero Image"
+                    width={200}
+                    height={200}
+                    className="h-full w-[200px] overflow-hidden object-cover object-center"
+                  />
+                </div>
+                <div
+                  id="singProdInfo"
+                  className="flex flex-col  p-4 bg-white"
+                >
+                  <div>
+                    <h3 className="font-prime font-normal text-[28px] leading-[36px] text-dark-gray capitalize">
+                      Ivory Frame Slim Jeans
+                    </h3>
+                    <p className="font-second font-normal text[16px] text-light-gray">£57.40</p>
+                  </div>
+                  <p className="font-second font-normal text-[14px] mt-auto text-dark-gray">shop now</p>
+                </div>
+              </div>
+
+
+            </div>
+            {/* banner product part end */}
+          </div>
+
+          <div className="mb-10 text-white">Scroll below</div>
+
+
+        </div>
+      </div>
+      <OutfitWomen/>
+      <OutfitWomen/>
+      <Service/>
+
     </>
   );
 }

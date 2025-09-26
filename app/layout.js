@@ -27,8 +27,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${primeFont.variable} ${secondFont.variable} antialiased`}
       >
-          
-        <header className="fixed top-0 inset-x-0 bg-light-gray">
+        <header className="fixed top-0 inset-x-0">
           <Navbar />
         </header>
         {children}

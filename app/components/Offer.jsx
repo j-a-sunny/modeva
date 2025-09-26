@@ -62,7 +62,7 @@ const Offer = ({
         aria-label="Dismiss promotional banner" // Good for accessibility
         className="ml-4 p-1 rounded-full hover:bg-white hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-white"
       >
-        <RxCross1 className="text-[20px]"/> {/* Your cross icon */}
+        <RxCross1 className="text-[20px]" /> {/* Your cross icon */}
       </button>
     </div>
   );
