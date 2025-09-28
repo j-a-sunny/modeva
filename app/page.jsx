@@ -3,6 +3,8 @@ import Link from "next/link";
 import Hero from "./components/Hero";
 import OutfitWomen from "./components/OutfitWomen";
 import Service from "./components/Service";
+import { HiChevronDoubleDown } from "react-icons/hi2";
+import Video from "./components/Video";
 
 
 export default function Home() {
@@ -20,10 +22,10 @@ export default function Home() {
                 id="bannerText"
                 className="text-white h-full flex flex-col justify-center"
               >
-                <h2 className="font-second font-normal text-[16px]">
+                <h2 className="font-second font-normal text-[12px] md:text-[16px]">
                   MADE IN BANGLADESH, DEDICATED TO BANGLADESH
                 </h2>
-                <h1 className="font-prime font-medium text-[76px]">
+                <h1 className="font-prime font-medium text-[36px] md:text-[56px] lg:text-[76px] leading-tight md:leading-[1.1]">
                   DISCOVER THE ART OF DRESSING UP
                 </h1>
 
@@ -32,78 +34,84 @@ export default function Home() {
             {/* banner text part end */}
             
 
-            {/* banner product part start*/}
+            {/* banner product part start */}
             <div
               id="bannerProduct"
-              className={
-                "w-1/3 self-end flex flex-col " +
-                "gap-y-[23px] justify-end items-end h-full"
-              }
+              className="
+                w-full md:w-1/3 self-end flex flex-col
+                gap-y-6 md:gap-y-[23px] justify-end items-end h-full
+                px-4 md:px-0
+              "
             >
-
               <div
                 id="singleProduct"
-                className="flex justify-end bg-white h-40">
+                className="
+                  flex flex-col lg:flex-row justify-end bg-white h-auto lg:h-40 w-full lg:w-auto
+                  rounded-lg shadow-md overflow-hidden
+                "
+              >
                 <div
                   id="singProdImg"
-                  className="">
+                  className="flex-shrink-0"
+                >
                   <Image
                     src="/slim-fit-wool-blazer.png"
                     alt="Hero Image"
                     width={200}
                     height={200}
-                    className="h-full w-[200px] overflow-hidden object-cover object-top"
+                    className="h-40 w-full lg:w-[200px] object-cover object-top"
                   />
                 </div>
                 <div
                   id="singProdInfo"
-                  className="flex flex-col  p-4 bg-white"
+                  className="flex flex-col p-4 bg-white"
                 >
                   <div>
-                    <h3 className="font-prime font-normal text-[28px] leading-[36px] text-dark-gray capitalize">
+                    <h3 className="font-prime font-normal md:text-[20px] lg:text-[28px] leading-[28px] lg:leading-[36px] text-dark-gray capitalize">
                       Slim-fit wool blazer
                     </h3>
-                    <p className="font-second font-normal text[16px] text-light-gray">£57.40</p>
+                    <p className="font-second font-normal text-[12px] lg:text-[16px] text-light-gray">£57.40</p>
                   </div>
-                  <p className="font-second font-normal text-[14px] mt-auto text-dark-gray">shop now</p>
+                  <p className="font-second font-normal text-[12px] lg:text-[14px] mt-auto text-dark-gray">shop now</p>
                 </div>
               </div>
 
-
               <div
                 id="singleProduct"
-                className="flex flex-row-reverse justify-end bg-white h-40">
+                className="
+                  flex flex-col lg:flex-row-reverse justify-end bg-white h-auto lg:h-40 w-full lg:w-auto
+                  rounded-lg shadow-md overflow-hidden
+                "
+              >
                 <div
                   id="singProdImg"
-                  className="">
+                  className="flex-shrink-0"
+                >
                   <Image
                     src="/ivory-frame-jeans.png"
                     alt="Hero Image"
                     width={200}
                     height={200}
-                    className="h-full w-[200px] overflow-hidden object-cover object-center"
+                    className="h-40 w-full lg:w-[200px] object-cover object-center"
                   />
                 </div>
                 <div
                   id="singProdInfo"
-                  className="flex flex-col  p-4 bg-white"
+                  className="flex flex-col p-4 bg-white"
                 >
                   <div>
-                    <h3 className="font-prime font-normal text-[28px] leading-[36px] text-dark-gray capitalize">
+                    <h3 className="font-prime font-normal text-[20px] lg:text-[28px] leading-[28px] lg:leading-[36px] text-dark-gray capitalize">
                       Ivory Frame Slim Jeans
                     </h3>
-                    <p className="font-second font-normal text[16px] text-light-gray">£57.40</p>
+                    <p className="font-second font-normal text-[14px] lg:text-[16px] text-light-gray">£57.40</p>
                   </div>
-                  <p className="font-second font-normal text-[14px] mt-auto text-dark-gray">shop now</p>
+                  <p className="font-second font-normal text-[12px] lg:text-[14px] mt-auto text-dark-gray">shop now</p>
                 </div>
               </div>
-
-
             </div>
-            {/* banner product part end */}
           </div>
 
-          <div className="mb-10 text-white">Scroll below</div>
+          <div className="flex gap-2 items-center mb-10 text-white">Scroll below <HiChevronDoubleDown/></div>
 
 
         </div>
@@ -111,6 +119,7 @@ export default function Home() {
       <OutfitWomen/>
       <OutfitWomen/>
       <Service/>
+      <Video/>
 
     </>
   );
