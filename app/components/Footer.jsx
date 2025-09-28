@@ -5,7 +5,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className="bg-primary py-12">
+    <div className="bg-primary py-12 max-md:px-4">
       <div className='container flex flex-col w-full gap-y-9 text-white font-second'>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-10.5">
           <div className=" text-xs">
@@ -13,9 +13,9 @@ const Footer = () => {
               <Image
                 src="/logo-white.svg"
                 alt="alt"
-                width={290}
+                width={145}
                 height={62}
-                className='mb-2 w-[290px] h-[62px]'
+                className='mb-2 h-[32px]'
               />
             </Link>
             <div>

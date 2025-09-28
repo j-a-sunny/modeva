@@ -34,8 +34,8 @@ export const Navbar = () => {
       <nav id='mainNav' className='relative'>
 
         {/* Mobile popup menu start */}
-        <div className={`flex container p-3 bg-primary text-white rounded-2xl -translate-x-1/2 left-1/2 absolute top-30 ${showNav ? ' md:hidden' : 'hidden'} duration-400 ease-in-out`}>
-          <ul className='flex flex-col items-center justify-around w-full py-4 gap-y-4'>
+        <div className={`flex container px-4  text-white rounded-2xl -translate-x-1/2 left-1/2 absolute top-16 ${showNav ? ' md:hidden' : 'hidden'} duration-400 ease-in-out`}>
+          <ul className='flex flex-col items-center justify-around w-full py-4 gap-y-4 bg-primary rounded-2xl'>
             <Link
               href={{
                 pathname: '/',
@@ -163,7 +163,7 @@ export const Navbar = () => {
               outline-none border-none
               font-second font-regular
               text-[12px] md:text-[14px]
-              text-dark-gray dark:text-light-gray]'
+              text-dark-gray dark:text-light-gray'
               type="text"
               placeholder='Search' />
 
