@@ -13,9 +13,9 @@ export default function Home() {
       <div className="w-full h-screen bg-[url('/heroBanner.png')] bg-cover bg-center" >
 
         <div className="container flex flex-col h-full items-center">
-          <div className="flex h-full w-full ">
+          <div className="flex flex-col lg:flex-row h-full w-full ">
             {/* banner text part start */}
-            <div className="flex flex-col px-4 h-full">
+            <div className="flex flex-col px-4 h-2/3 md:h-full">
 
               {/* banner text part */}
               <div
@@ -32,23 +32,24 @@ export default function Home() {
               </div>
             </div>
             {/* banner text part end */}
-            
+
 
             {/* banner product part start */}
             <div
               id="bannerProduct"
               className="
-                w-full md:w-1/3 self-end flex flex-col
-                gap-y-6 md:gap-y-[23px] justify-end items-end h-full
-                px-4 md:px-0
-              "
+    md:aspect-[2/1] md:w-1/2 lg:w-1/3 self-end flex flex-col
+    gap-y-6 md:gap-y-[23px] justify-end items-end h-1/3 md:h-full
+    px-4 
+  "
             >
+              {/* First Product Card */}
               <div
                 id="singleProduct"
                 className="
-                  flex flex-col lg:flex-row justify-end bg-white h-auto lg:h-40 w-full lg:w-auto
-                  rounded-lg shadow-md overflow-hidden
-                "
+      flex flex-row bg-white h-40 w-full lg:w-[320px] 
+      rounded-lg shadow-md overflow-hidden
+    "
               >
                 <div
                   id="singProdImg"
@@ -56,32 +57,34 @@ export default function Home() {
                 >
                   <Image
                     src="/slim-fit-wool-blazer.png"
-                    alt="Hero Image"
+                    alt="Slim-fit wool blazer"
                     width={200}
                     height={200}
-                    className="h-40 w-full lg:w-[200px] object-cover object-top"
+                    // h-40 ensures it matches the card height. w-full/w-[160px] controls image width
+                    className="h-40 w-30 md:w-[160px] object-cover object-top"
                   />
                 </div>
                 <div
                   id="singProdInfo"
-                  className="flex flex-col p-4 bg-white"
+                  className="flex flex-col p-4 bg-white flex-grow" // flex-grow allows info to take remaining space
                 >
                   <div>
-                    <h3 className="font-prime font-normal md:text-[20px] lg:text-[28px] leading-[28px] lg:leading-[36px] text-dark-gray capitalize">
+                    <h3 className="font-prime font-normal text-[20px] leading-[28px] text-dark-gray capitalize">
                       Slim-fit wool blazer
                     </h3>
-                    <p className="font-second font-normal text-[12px] lg:text-[16px] text-light-gray">£57.40</p>
+                    <p className="font-second font-normal text-[12px] text-light-gray">£57.40</p>
                   </div>
-                  <p className="font-second font-normal text-[12px] lg:text-[14px] mt-auto text-dark-gray">shop now</p>
+                  <p className="font-second font-normal text-[12px] mt-auto text-dark-gray">shop now</p>
                 </div>
               </div>
 
+              {/* Second Product Card */}
               <div
                 id="singleProduct"
                 className="
-                  flex flex-col lg:flex-row-reverse justify-end bg-white h-auto lg:h-40 w-full lg:w-auto
-                  rounded-lg shadow-md overflow-hidden
-                "
+      flex flex-row-reverse bg-white h-40 w-full lg:w-[320px]
+      rounded-lg shadow-md overflow-hidden
+    "
               >
                 <div
                   id="singProdImg"
@@ -89,37 +92,38 @@ export default function Home() {
                 >
                   <Image
                     src="/ivory-frame-jeans.png"
-                    alt="Hero Image"
+                    alt="Ivory Frame Slim Jeans"
                     width={200}
                     height={200}
-                    className="h-40 w-full lg:w-[200px] object-cover object-center"
+                    // h-40 ensures it matches the card height. w-full/w-[160px] controls image width
+                    className="h-40 w-30 md:w-[160px] object-cover object-center"
                   />
                 </div>
                 <div
                   id="singProdInfo"
-                  className="flex flex-col p-4 bg-white"
+                  className="flex flex-col p-4 bg-white flex-grow"
                 >
                   <div>
-                    <h3 className="font-prime font-normal text-[20px] lg:text-[28px] leading-[28px] lg:leading-[36px] text-dark-gray capitalize">
+                    <h3 className="font-prime font-normal text-[20px] leading-[28px] text-dark-gray capitalize">
                       Ivory Frame Slim Jeans
                     </h3>
-                    <p className="font-second font-normal text-[14px] lg:text-[16px] text-light-gray">£57.40</p>
+                    <p className="font-second font-normal text-[14px] text-light-gray">£57.40</p>
                   </div>
-                  <p className="font-second font-normal text-[12px] lg:text-[14px] mt-auto text-dark-gray">shop now</p>
+                  <p className="font-second font-normal text-[12px] mt-auto text-dark-gray">shop now</p>
                 </div>
               </div>
             </div>
-          </div>
+            {/* banner product part end */}          </div>
 
-          <div className="flex gap-2 items-center mb-10 text-white">Scroll below <HiChevronDoubleDown/></div>
+          <div className="flex gap-2 items-center mb-10 text-white">Scroll below <HiChevronDoubleDown /></div>
 
 
         </div>
       </div>
-      <OutfitWomen/>
-      <OutfitWomen/>
-      <Service/>
-      <Video/>
+      <OutfitWomen />
+      <OutfitWomen />
+      <Service />
+      <Video />
 
     </>
   );
