@@ -1,5 +1,5 @@
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import Offer from "./components/Offer";
 import "./globals.css";
 import { Lato, Playfair_Display } from "next/font/google";
 
@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
           <Navbar />
         </header>
         {children}
-        <footer className="">footer</footer>
+<Footer/>
       </body>
     </html>
   );
