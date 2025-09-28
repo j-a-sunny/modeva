@@ -5,7 +5,7 @@ import SingleProduct from './SingleProduct'
 
 const OutfitWomen = () => {
   return (
-    <div className='container flex flex-col py-8 bg-yellow-400 gap-y-8'>
+    <div className='container flex flex-col py-8 gap-y-8'>
       <div>
         <h2 className='font-prime font-medium text-[36px] md:text-[56px] lg:text-[76px] leading-tight md:leading-[1.1] uppercase'>the best dress for the best woman</h2>
       </div>
