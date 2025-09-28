@@ -3,33 +3,76 @@ import { HiCreditCard, HiHandThumbUp, HiPhone, HiRocketLaunch } from 'react-icon
 
 const Service = () => {
   return (
-    <div className='container flex gap-9 w-full'>
-      <div className="border-6 border-[#f2f2f2] w-full">
-        <div className='flex justify-center items-center w-[64px] h-[64px] bg-primary text-white text-[24px] rounded-full'><HiHandThumbUp /></div>
-        <div className="">
-          <h2>100% Satisfaction Guaranteed  </h2>
-          <p>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+
+    <div className="container py-8 gap-8 gap-y-8 flex flex-col lg:flex-row">
+      <div className="bg-[#f2f2f2] lg:w-1/4 p-6">
+        <div className="flex flex-col  items-center gap-y-4 bg-background h-full p-6">
+          {/* div1 content start */}
+
+          {/* icon part */}
+          <div className="flex justify-center items-center aspect-square h-16 w-16 bg-primary text-white text-[24px] rounded-full"><HiHandThumbUp />
+          </div>
+
+          {/* text part */}
+          <div className="flex flex-col gap-y-2">
+            <h3 className='font-prime font-normal text-[28px] text-center text-dark-gray leading-9'>100% Satisfaction Guaranteed  </h3>
+            <p className='font-second font-normal text-[12px] text-dark-gray'>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+          </div>
+
+          {/* div1 content end */}
         </div>
       </div>
-      <div className="flex flex-col gap-9 w-full">
-        <div className="border-6 border-[#f2f2f2]"><div className='flex justify-center items-center w-[64px] h-[64px] bg-primary text-white text-[24px] rounded-full'><HiPhone/></div>        <div className="">
-          <h2>24/7 Online Service  </h2>
-          <p>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+      <div className="flex flex-col lg:w-1/2 gap-y-8">
+        <div className='bg-[#f2f2f2] h-full p-6'>
+          <div className="flex flex-col lg:flex-row items-center gap-4 bg-background h-full p-6">
+            {/* div2.1 content start */}
+            {/* icon part */}
+            <div className="flex justify-center items-center aspect-square h-16 w-16 bg-primary text-white text-[24px] rounded-full"><HiPhone />
+            </div>
+
+            {/* text part */}
+            <div className="flex flex-col gap-y-2">
+              <h3 className='font-prime font-normal text-[28px] text-dark-gray leading-9'>24/7 Online Service  </h3>
+              <p className='font-second font-normal text-[12px] text-dark-gray'>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+            </div>
+            {/* div2.1 content end */}
+          </div>
         </div>
-</div>
-        <div className="border-6 border-[#f2f2f2]"><div className='flex justify-center items-center w-[64px] h-[64px] bg-primary text-white text-[24px] rounded-full'><HiRocketLaunch /></div>        <div className="">
-          <h2>Fast Delivery  </h2>
-          <p>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+        <div className='bg-[#f2f2f2] h-full p-6'>
+          <div className="flex flex-col lg:flex-row items-center gap-4 bg-background h-full p-6">
+            {/* div2.2 content start*/}
+
+            {/* icon */}
+            <div className="flex justify-center items-center aspect-square h-16 w-16 bg-primary text-white text-[24px] rounded-full"><HiRocketLaunch /></div>
+
+            {/* text */}
+            <div className="flex flex-col gap-y-2">
+              <h3 className='font-prime font-normal text-[28px] text-dark-gray leading-9'>Fast Delivery  </h3>
+              <p className='font-second font-normal text-[12px] text-dark-gray'>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+            </div>
+
+            {/* div2.2 content end*/}
+          </div>
         </div>
-</div>
       </div>
-      <div className="border-6 border-[#f2f2f2] w-full"><div className='flex justify-center items-center w-[64px] h-[64px] bg-primary text-white text-[24px] rounded-full'><HiCreditCard /></div>        <div className="">
-          <h2>Payment With Secure System  </h2>
-          <p>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+      <div className="bg-[#f2f2f2] lg:w-1/4 p-6">
+        <div className="flex flex-col items-center gap-y-4 bg-background h-full p-6">
+          {/* div3 payment content start */}
+
+          {/* icon */}
+          <div className="flex justify-center items-center aspect-square h-16 bg-primary text-white text-[24px] rounded-full"><HiCreditCard /></div>
+
+          {/* text start */}
+          {/* text */}
+          <div className='flex flex-col gap-y-2'>
+            <h3 className='font-prime font-normal text-[28px] text-center text-dark-gray leading-9'>Payment With Secure System  </h3>
+            <p className='font-second font-normal text-[12px] text-dark-gray'>Lorem ipsum dolor sit amet consectetur. Suspendisse laoreet scelerisque morbi vulputate. Quisque bibendum eget id diam elementum fringilla duis. </p>
+          </div>
+
+          {/* div3 content end */}
         </div>
-</div>
-    </div>
-  )
+      </div>
+    </div>)
 }
 
 export default Service
