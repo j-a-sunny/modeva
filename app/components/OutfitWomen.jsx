@@ -18,7 +18,7 @@ const OutfitWomen = () => {
         <SingleProduct />
         <SingleProduct />
         <SingleProduct />
-        <SingleProduct /> {/* Added a couple more for better visual testing */}
+        <SingleProduct />
         <SingleProduct />
 
       </div>
