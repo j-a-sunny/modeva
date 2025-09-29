@@ -24,7 +24,7 @@ const SingleProduct = () => {
             <button className="h-[72px] w-full flex items-center justify-center
             p-6 gap-2
             font-normal font-second
-            tracking-wide text-white bg-blue-500">
+            tracking-wide text-white bg-primary">
               <span className="w-full uppercase text-xl">
                 add to cart
               </span>
