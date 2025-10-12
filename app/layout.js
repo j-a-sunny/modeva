@@ -25,13 +25,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${primeFont.variable} ${secondFont.variable} antialiased`}
+        className={`${primeFont.variable} ${secondFont.variable} antialiased `}
       >
-        <header className="fixed z-99 top-0 inset-x-0">
+        {/* <header> */}
+
+        {/* ! STICKY NAVBAR */}
+        <header className="fixed z-99 top-0 inset-x-0 bg-white dark:bg-black">
           <Navbar />
         </header>
         {children}
-<Footer/>
+        <Footer />
       </body>
     </html>
   );

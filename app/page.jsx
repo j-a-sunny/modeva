@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import Hero from "./components/Hero";
@@ -5,6 +6,16 @@ import OutfitWomen from "./components/OutfitWomen";
 import Service from "./components/Service";
 import { HiChevronDoubleDown } from "react-icons/hi2";
 import Video from "./components/Video";
+import OutfitMen from "./components/OutfitMen";
+
+
+const scrollHalfScreen = () => {
+  window.scrollBy({
+    top: window.innerHeight - 100,
+    behavior: "smooth",
+  });
+};
+
 
 
 export default function Home() {
@@ -115,13 +126,15 @@ export default function Home() {
             </div>
             {/* banner product part end */}          </div>
 
-          <div className="flex gap-2 items-center mb-10 text-white">Scroll below <HiChevronDoubleDown /></div>
+          <button   onClick={scrollHalfScreen}
+ className="flex gap-2 items-center py-10 text-white">Scroll below <HiChevronDoubleDown /></button>
+
 
 
         </div>
       </div>
       <OutfitWomen />
-      <OutfitWomen />
+      <OutfitMen />
       <Service />
       <Video />
 

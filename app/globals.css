@@ -7,7 +7,7 @@
 
 
 :root {
-  --background: #ffffff;
+  --background: hsl(0, 0%, 100%);
   --foreground: #171717;
   --primary-color: #8b4513;
   --dark-gray: #3e3e3e;

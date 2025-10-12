@@ -2,6 +2,7 @@
 
 "use client"; // This is crucial for client-side components in Next.js App Router
 
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function LoginForm() {
@@ -48,7 +49,12 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8">
+
+<div className="flex container min-h-screen">
+
+<div className=" w-1/2 bg-[url('/heroBanner.png')] bg-cover bg-center">imagelore Lorem ipsum dolor sit amet consectetur adipisicing elit. In qui modi voluptatum blanditiis autem doloremque recusandae sequi, sed quaerat repellat Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur vero consequuntur repellat nemo mollitia saepe corrupti ratione porro excepturi maiores, ad officia sint iusto ipsum voluptate veniam illo iste quaerat quam distinctio perferendis! Ipsa, debitis impedit! Recusandae, veritatis. Aliquam velit cum nesciunt deleniti dolores, in quo minima molestias vitae aut tempora iure error nisi vero illum recusandae sed perferendis impedit! Nisi illum tempora cupiditate aspernatur voluptatum eos placeat nostrum id provident pariatur, obcaecati deleniti maiores voluptates cumque fugit atque esse saepe culpa! Quos officia unde laudantium tenetur blanditiis aperiam eum optio quis delectus adipisci recusandae corrupti omnis, ullam maxime eius?!</div>
+
+    <div className="min-h-screen w-1/2 flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-xl">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
@@ -157,7 +163,20 @@ export default function LoginForm() {
             </button>
           </div>
         </form>
+        <div className="">
+                    <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            Don’t have account?{" "}
+            <Link
+              href="/register"
+              className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              Register here
+            </Link>
+          </p>
+
+        </div>
       </div>
     </div>
-  );
+
+</div>  );
 }
