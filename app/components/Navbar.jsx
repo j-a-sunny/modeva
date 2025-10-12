@@ -31,11 +31,11 @@ export const Navbar = () => {
         mainText="Discount 20% For New Member ,"
         highlightText="ONLY FOR TODAY!!"
       />
-      <nav id='mainNav' className='relative'>
+      <nav id='mainNav' className='relative z-99'>
 
         {/* Mobile popup menu start */}
-        <div className={`flex container px-4 text-white rounded-2xl -translate-x-1/2 absolute top-16 ${showNav ? 'left-1/2 md:hidden' : ' -left-1/2'} transition-all duration-400 ease-in-out`}>
-          <ul className='flex flex-col items-center  justify-around w-full py-4 gap-y-4 bg-primary rounded-2xl'>
+        <div className={`flex container px-4 text-white dark:text-white -translate-x-1/2 absolute top-16 ${showNav ? 'left-1/2 md:hidden' : ' -left-1/2'} transition-all duration-400 ease-in-out`}>
+          <ul className='flex flex-col items-center  justify-around w-full py-4 gap-y-4 bg-dark-gray '>
             <Link
               href={{
                 pathname: '/',
@@ -71,19 +71,19 @@ export const Navbar = () => {
             </Link>
             <Link
               href={{
-                pathname: '/',
+                pathname: '/cart',
                 query: { name: 'cart' },
               }}
             >
               <span className="flex">Cart
-                <span className='w-[15px] h-[15px] bg-[#e9410e] rounded-full flex justify-center items-center text-[12px] text-white font-poppins font-medium '>3</span></span>
+                <span className='w-[15px] h-[15px] bg-primary rounded-full flex justify-center items-center text-[12px] text-white dark:text-white font-poppins font-medium '>3</span></span>
             </Link>
           </ul>
         </div>
         {/* Mobile popup menu end */}
 
 
-
+        {/*  */}
         <div className='menuRow container md:h-25 h-15.5 px-4 flex items-center '>
 
           {/* LOGO PART START */}
@@ -108,10 +108,10 @@ export const Navbar = () => {
 
           {/* Link part start */}
           <div className="hidden lg:flex mx-auto">
-            <ul className='flex text-white items-center justify-around w-full gap-8'>
+            <ul className='flex text-dark-gray dark:text-white items-center justify-around w-full gap-8'>
               <Link
                 href={{
-                  pathname: '/',
+                  pathname: '/catalog',
                   query: { name: 'catalog' },
                 }}
                 className="flex items-center gap-2"
@@ -120,7 +120,7 @@ export const Navbar = () => {
               </Link>
               <Link
                 href={{
-                  pathname: '/',
+                  pathname: '/sale',
                   query: { name: 'sale' },
                 }}
               >
@@ -128,7 +128,7 @@ export const Navbar = () => {
               </Link>
               <Link
                 href={{
-                  pathname: '/',
+                  pathname: '/new',
                   query: { name: 'new' },
                 }}
               >
@@ -136,7 +136,7 @@ export const Navbar = () => {
               </Link>
               <Link
                 href={{
-                  pathname: '/',
+                  pathname: '/about',
                   query: { name: 'about' },
                 }}
               >
@@ -178,37 +178,44 @@ export const Navbar = () => {
               className='hidden md:block'
             >
               <HiOutlineUser
-                className='text-white text-[24px]'
+                className='text-dark-gray dark:text-light-gray text-[24px]'
               />
             </button>
             {/* cart button */}
-            <button
+
+            <Link
+              href={{
+                pathname: '/cart',
+                query: { name: 'cart' },
+              }}
+            >            <button
               className='relative hidden md:block'
             >
-              <HiOutlineShoppingCart
-                className='text-white text-[24px]'
-              />
+                <HiOutlineShoppingCart
+                  className='text-dark-gray dark:text-light-gray text-[24px]'
+                />
 
-              <span
-                className='
+                <span
+                  className='
               notificationBadge
               flex absolute justify-center items-center
               top-[-8px] left-4
               w-5 h-5 rounded-full
               font-second font-medium text-white text-0.5
               bg-light-gray'>3</span>
-            </button>
+              </button>
+            </Link>
 
             {/* Hamburger menu */}
             <button onClick={() => setShowNav(!showNav)} className='relative md:hidden'>
               <div className='relative w-6 h-9 scale-70 flex flex-col justify-center items-center'>
-                <span className={`h-1 bg-white absolute rounded-full duration-400 ease-in-out ${showNav ? 'rotate-45 w-5/4 top-4' : 'w-full top-2'}`}></span>
-                <span className={` h-1 bg-white absolute rounded-full duration-400 ease-in-out ${showNav ? 'w-0' : 'w-full'}`}></span>
-                <span className={`h-1 bg-white absolute rounded-full duration-400 ease-in-out ${showNav ? '-rotate-45 w-5/4 bottom-4' : 'w-full bottom-2'}`}></span>
+                <span className={`h-1 bg-light-gray dark:bg-white absolute rounded-full duration-400 ease-in-out ${showNav ? 'rotate-45 w-5/4 top-4' : 'w-full top-2'}`}></span>
+                <span className={` h-1 bg-light-gray dark:bg-white absolute rounded-full duration-400 ease-in-out ${showNav ? 'w-0' : 'w-full'}`}></span>
+                <span className={`h-1 bg-light-gray dark:bg-white absolute rounded-full duration-400 ease-in-out ${showNav ? '-rotate-45 w-5/4 bottom-4' : 'w-full bottom-2'}`}></span>
               </div>
 
 
-              <span className={`w-[15px] h-[15px] bg-[#6c6c0a] rounded-full flex justify-center items-center text-[12px] text-[#fff] font-poppins font-medium absolute top-1/2  ${!showNav || 'hidden'}`}>3</span>
+              <span className={`w-[15px] h-[15px] bg-primary rounded-full flex justify-center items-center text-[12px] text-[#fff] font-poppins font-medium absolute top-1/2  ${!showNav || 'hidden'}`}>3</span>
 
             </button>
 
