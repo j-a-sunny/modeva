@@ -1,300 +1,232 @@
-// components/RegisterForm.js
+'use client';
+import React, { useState } from 'react';
 
-"use client"; // This is crucial for client-side components in Next.js App Router
+// Define the main App component
+const App = () => {
+  // State for form data
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    username: '',
+    role: 'USER', // Default role
+  });
 
-import React, { useState, useMemo } from "react"; // useMemo for optimizing password rules
-import Link from "next/link"; // For navigation to login page
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Import icons from react-icons/fa
+  // State for submission status
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(null);
 
-export default function RegisterForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  // Constants for API call
+  const url = 'https://api.freeapi.app/api/v1/users/register';
+  const apiKey = "" // API Key is left blank as per instructions.
 
-  // Define password rules and checks, including the password match
-  const passwordRulesConfig = useMemo(() => [
-    {
-      label: 'Minimum 8 characters',
-      check: (p) => p.length >= 8,
-      errorMessage: 'Password must be at least 8 characters long.',
-    },
-    {
-      label: 'At least 1 uppercase letter',
-      check: (p) => /[A-Z]/.test(p),
-      errorMessage: 'Password must contain at least one uppercase letter.',
-    },
-    {
-      label: 'At least 1 lowercase letter',
-      check: (p) => /[a-z]/.test(p),
-      errorMessage: 'Password must contain at least one lowercase letter.',
-    },
-    {
-      label: 'At least 1 number',
-      check: (p) => /[0-9]/.test(p),
-      errorMessage: 'Password must contain at least one number.',
-    },
-    {
-      label: 'At least 1 special character',
-      check: (p) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(p),
-      errorMessage: 'Password must contain at least one special character.',
-    },
-    {
-      label: 'Passwords match', // New rule for matching passwords
-      check: (p, cp) => p === cp && p.length > 0, // Ensure password is not empty
-      errorMessage: 'Passwords do not match.',
-    },
-  ], []); // Depend on nothing as these rules are static
+  // Handle form field changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  const validateForm = () => {
-    setError(""); // Clear previous errors
-
-    if (!name || !email || !password || !confirmPassword) {
-      setError("All fields are required.");
-      return false;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
-      return false;
-    }
-
-    // Validate password using the same rules configuration
-    // Pass both password and confirmPassword to checks that need it
-    for (const rule of passwordRulesConfig) {
-      if (!rule.check(password, confirmPassword)) {
-        setError(rule.errorMessage); // Use the error message defined in the rule
-        return false;
+  // Utility to handle retry logic with exponential backoff
+  const fetchWithRetry = async (apiCall, retries = 3) => {
+    for (let i = 0; i < retries; i++) {
+      try {
+        const response = await apiCall();
+        return response;
+      } catch (error) {
+        if (i < retries - 1) {
+          const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s...
+          console.warn(`Attempt ${i + 1} failed. Retrying in ${delay / 1000}s...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        } else {
+          throw error;
+        }
       }
     }
-
-    if (!termsAccepted) {
-      setError("You must accept the terms and conditions.");
-      return false;
-    }
-
-    return true;
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccess(false);
+    setIsLoading(true);
+    setMessage('');
+    setIsSuccess(null);
 
-    if (!validateForm()) {
-      return;
-    }
-
-    setLoading(true);
+    const options = {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(formData),
+    };
 
     try {
-      console.log("Attempting registration with:", { name, email, password });
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log("Registration successful!");
-      setSuccess(true);
-      setError("");
-      setName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setTermsAccepted(false);
-    } catch (apiError) {
-      console.error("Registration API error:", apiError);
-      setError("An unexpected error occurred during registration. Please try again.");
-      setSuccess(false);
+      const apiCall = () => fetch(
+          `${url}?key=${apiKey}`,
+          options
+      );
+
+      const response = await fetchWithRetry(apiCall);
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSuccess(true);
+        setMessage(data.message || 'Registration successful! Welcome.');
+        // Optionally reset form data here:
+        // setFormData({ email: '', password: '', username: '', role: 'USER' });
+      } else {
+        setIsSuccess(false);
+        // Display a specific error message if available from the API
+        const errorMessage = data.message || data.error || 'Registration failed due to an unknown API error.';
+        setMessage(errorMessage);
+        console.error('API Error Response:', data);
+      }
+    } catch (error) {
+      setIsSuccess(false);
+      setMessage(`Network error: ${error.message}. Please check your connection.`);
+      console.error('Fetch Error:', error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
+  // Determine the color class for the message box
+  const messageClass = isSuccess === true
+    ? 'bg-green-100 border-green-400 text-green-700'
+    : isSuccess === false
+      ? 'bg-red-100 border-red-400 text-red-700'
+      : '';
+
   return (
-    <div className="container flex">
-      <div className="bg-[url('/heroBanner.png')] bg-cover bg-center w-1/2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum eos voluptatem, repellendus eveniet consequatur ducimus? Soluta, porro quisquam modi ab neque fugiat architecto, eius hic omnis incidunt ex eaque quidem, nam tempora pariatur ut dolorem. Hic aperiam adipisci, perspiciatis blanditiis ullam tenetur? Deleniti, iusto commodi fuga ducimus sapiente enim, saepe repellat non nesciunt quia maiores consectetur suscipit, rem aspernatur cumque? Magni rem assumenda minima odio dicta quasi ipsum voluptates, necessitatibus facere cum, iure quidem possimus est dignissimos totam, voluptatum ea? Ea eius quidem modi eligendi aut, beatae quibusdam, voluptas nisi inventore iusto eos, eveniet velit neque ad recusandae vero veniam.</div>
-      <div className="min-h-screen w-1/2 flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 p-8 bg-white dark:bg-gray-800 shadow-xl">
+
+<div className='flex container'>
+<div className="w-1/2 bg-[url('/heroBanner.png')] bg-cover bg-center"></div>
+<div className="w-1/2">    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans">
+      <div className="w-full max-w-lg bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
+        
+        {/* Header */}
+        <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-2">
+          Create Account
+        </h1>
+        <p className="text-gray-500 text-center mb-8">
+          Join our platform by filling out the form below.
+        </p>
+
+        {/* Status Message Area */}
+        {message && (
+          <div
+            className={`p-4 mb-6 border-l-4 rounded-lg transition-opacity duration-300 ${messageClass}`}
+            role="alert"
+          >
+            <p className="font-semibold">{isSuccess ? 'Success' : 'Error'}</p>
+            <p className="text-sm">{message}</p>
+          </div>
+        )}
+
+        {/* Registration Form */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+
+          {/* Email Input */}
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-              Create an account
-            </h2>
-            <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-              Or{" "}
-              <Link
-                href="/login"
-                className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                sign in to your existing account
-              </Link>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              required
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+            />
+          </div>
+
+          {/* Username Input */}
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="doejohn"
+              required
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+            />
+          </div>
+
+          {/* Password Input */}
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="••••••••"
+              required
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+            />
+            <p className="mt-2 text-xs text-gray-500">
+              Password must be at least 8 characters.
             </p>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            {error && (
-              <p className="text-red-500 text-sm text-center font-medium">
-                {error}
-              </p>
+
+          {/* Role Selection */}
+          <div>
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+              Select Role
+            </label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg shadow-sm transition duration-150"
+            >
+              <option value="USER">User</option>
+              <option value="MANAGER">Manager</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-sm font-bold text-white transition duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+              isLoading
+                ? 'bg-blue-400 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 hover:scale-[1.01]'
+            }`}
+          >
+            {isLoading ? (
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            ) : (
+              'Register Now'
             )}
-            {success && (
-              <p className="text-green-500 text-sm text-center font-medium">
-                Registration successful! You can now log in.
-              </p>
-            )}
+          </button>
+        </form>
 
-            <div className=" shadow-sm -space-y-px">
-              {/* Full Name */}
-              <div>
-                <label htmlFor="full-name" className="sr-only">Full Name</label>
-                <input
-                  id="full-name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white  focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white dark:bg-gray-700"
-                  placeholder="Full Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              {/* Email Address */}
-              <div>
-                <label htmlFor="email-address" className="sr-only">Email address</label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white dark:bg-gray-700"
-                  placeholder="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              {/* Password */}
-              <div>
-                <label htmlFor="password" className="sr-only">Password</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white dark:bg-gray-700"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-              {/* Confirm Password */}
-              <div>
-                <label htmlFor="confirm-password" className="sr-only">Confirm Password</label>
-                <input
-                  id="confirm-password"
-                  name="confirm-password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white  focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white dark:bg-gray-700"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  disabled={loading}
-                />
-              </div>
-            </div>
-
-            {/* Inlined Password Strength Indicator (moved here) */}
-            {(password.length > 0 || confirmPassword.length > 0) && ( // Show if either password field has input
-              <div className="mt-2 text-sm space-y-1 pl-3">
-                {passwordRulesConfig.map((rule, index) => {
-                  // Pass confirmPassword to checks that need it
-                  const isValid = rule.check(password, confirmPassword);
-                  return (
-                    <div
-                      key={index}
-                      className={`flex items-center ${isValid ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}
-                    >
-                      {isValid ? (
-                        <FaCheckCircle className="h-4 w-4 mr-2" />
-                      ) : (
-                        <FaTimesCircle className="h-4 w-4 mr-2" />
-                      )}
-                      <span>{rule.label}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Terms and Conditions Checkbox */}
-            <div className="flex items-center mt-6"> {/* Added mt-6 for spacing from password indicator */}
-              <input
-                id="terms-conditions"
-                name="terms-conditions"
-                type="checkbox"
-                required
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600  dark:bg-gray-700 dark:checked:bg-blue-600"
-                checked={termsAccepted}
-                onChange={(e) => setTermsAccepted(e.target.checked)}
-                disabled={loading}
-              />
-              <label
-                htmlFor="terms-conditions"
-                className="ml-2 block text-sm text-gray-900 dark:text-gray-300"
-              >
-                I agree to the{" "}
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Terms and Conditions
-                </a>
-              </label>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium  text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-offset-gray-900"
-                disabled={loading || success}
-              >
-                {loading ? (
-                  <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                ) : (
-                  "Register"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
       </div>
+    </div>
+</div>
+</div>  );
+};
 
-    </div>);
-}
+export default App;

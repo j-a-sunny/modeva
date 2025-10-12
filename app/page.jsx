@@ -7,6 +7,8 @@ import Service from "./components/Service";
 import { HiChevronDoubleDown } from "react-icons/hi2";
 import Video from "./components/Video";
 import OutfitMen from "./components/OutfitMen";
+import Bento from "./components/Bento";
+import Testimony from "./components/Testimony";
 
 
 const scrollHalfScreen = () => {
@@ -21,7 +23,7 @@ const scrollHalfScreen = () => {
 export default function Home() {
   return (
     <>
-      <div className="w-full h-screen bg-[url('/heroBanner.png')] bg-cover bg-center" >
+      <div className="w-full h-screen bg-[url('/heroBanner.png')] bg-cover bg-center mb-8" >
 
         <div className="container flex flex-col h-full items-center">
           <div className="flex flex-col lg:flex-row h-full w-full ">
@@ -133,10 +135,12 @@ export default function Home() {
 
         </div>
       </div>
+      <Bento/>
       <OutfitWomen />
       <OutfitMen />
       <Service />
       <Video />
+      <Testimony/>
 
     </>
   );

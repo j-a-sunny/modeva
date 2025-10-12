@@ -2,6 +2,13 @@ import CartSingleProduct from '@/app/components/CartSingleProduct'
 import React from 'react'
 import { HiOutlineXMark } from 'react-icons/hi2'
 
+
+
+  let data = await fetch('https://api.vercel.app/blog')
+  console.log(data);
+  let posts = await data.json()
+
+
 const cart = () => {
   return (
     <div className='container pb-20'>
@@ -36,7 +43,7 @@ const cart = () => {
               <span>sub$</span>
             </span>
             <span className="flex justify-between">
-              <span>totla</span>
+              <span>total</span>
               <span>total$</span>
             </span>
           </div>

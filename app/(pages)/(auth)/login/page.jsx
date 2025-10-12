@@ -1,182 +1,190 @@
-// components/LoginForm.js
+'use client';
+import React, { useState } from 'react';
 
-"use client"; // This is crucial for client-side components in Next.js App Router
+// Define the main App component for the Login Form
+const App = () => {
+  // State for form data (only username and password needed for login)
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
 
-import Link from "next/link";
-import React, { useState } from "react";
+  // State for submission status
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(null);
 
-export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  // Constants for API call (Updated to login endpoint)
+  const url = 'https://api.freeapi.app/api/v1/users/login';
+  const apiKey = "" // API Key is left blank as per instructions.
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(""); // Clear previous errors
-    setLoading(true);
+  // Handle form field changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    // Basic validation
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      setLoading(false);
-      return;
-    }
-
-    // Simulate an API call
-    try {
-      // Replace with your actual API call (e.g., fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) }))
-      console.log("Attempting login with:", { email, password });
-
-      // Simulate a network delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Simulate success or failure
-      if (email === "test@example.com" && password === "password123") {
-        console.log("Login successful!");
-        // Redirect user or store token (e.g., using context, global state, or local storage)
-        alert("Login Successful!"); // For demonstration
-        // router.push('/dashboard'); // If you had next/navigation's useRouter
-      } else {
-        setError("Invalid email or password.");
+  // Utility to handle retry logic with exponential backoff
+  const fetchWithRetry = async (apiCall, retries = 3) => {
+    for (let i = 0; i < retries; i++) {
+      try {
+        const response = await apiCall();
+        return response;
+      } catch (error) {
+        if (i < retries - 1) {
+          const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s...
+          console.warn(`Attempt ${i + 1} failed. Retrying in ${delay / 1000}s...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        } else {
+          throw error;
+        }
       }
-    } catch (apiError) {
-      console.error("Login API error:", apiError);
-      setError("An unexpected error occurred. Please try again.");
-    } finally {
-      setLoading(false);
     }
   };
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage('');
+    setIsSuccess(null);
+
+    // The payload for login only requires username and password
+    const options = {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(formData),
+    };
+
+    try {
+      const apiCall = () => fetch(
+        `${url}?key=${apiKey}`,
+        options
+      );
+
+      const response = await fetchWithRetry(apiCall);
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSuccess(true);
+        // Assuming a successful login returns data like a token or user info
+        setMessage(data.message || 'Login successful! Redirecting...');
+        // In a real app, you would save the token and redirect here.
+      } else {
+        setIsSuccess(false);
+        // Display a specific error message if available from the API
+        const errorMessage = data.message || data.error || 'Login failed due to an unknown API error.';
+        setMessage(errorMessage);
+        console.error('API Error Response:', data);
+      }
+    } catch (error) {
+      setIsSuccess(false);
+      setMessage(`Network error: ${error.message}. Please check your connection.`);
+      console.error('Fetch Error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Determine the color class for the message box
+  const messageClass = isSuccess === true
+    ? 'bg-green-100 border-green-400 text-green-700'
+    : isSuccess === false
+      ? 'bg-red-100 border-red-400 text-red-700'
+      : '';
+
   return (
+    <div className="container flex">
+      <div className="w-1/2 bg-[url('/heroBanner.png')] bg-cover bg-center"></div>
+      <div className="w-1/2 min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans">
+        <div className="w-full max-w-sm bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
 
-<div className="flex container min-h-screen">
+          {/* Header */}
+          <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-2">
+            Log In to Your Account
+          </h1>
+          <p className="text-gray-500 text-center mb-8">
+            Welcome back! Please enter your credentials.
+          </p>
 
-<div className=" w-1/2 bg-[url('/heroBanner.png')] bg-cover bg-center">imagelore Lorem ipsum dolor sit amet consectetur adipisicing elit. In qui modi voluptatum blanditiis autem doloremque recusandae sequi, sed quaerat repellat Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur vero consequuntur repellat nemo mollitia saepe corrupti ratione porro excepturi maiores, ad officia sint iusto ipsum voluptate veniam illo iste quaerat quam distinctio perferendis! Ipsa, debitis impedit! Recusandae, veritatis. Aliquam velit cum nesciunt deleniti dolores, in quo minima molestias vitae aut tempora iure error nisi vero illum recusandae sed perferendis impedit! Nisi illum tempora cupiditate aspernatur voluptatum eos placeat nostrum id provident pariatur, obcaecati deleniti maiores voluptates cumque fugit atque esse saepe culpa! Quos officia unde laudantium tenetur blanditiis aperiam eum optio quis delectus adipisci recusandae corrupti omnis, ullam maxime eius?!</div>
-
-    <div className="min-h-screen w-1/2 flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-xl">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            Sign in to your account
-          </h2>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <p className="text-red-500 text-sm text-center font-medium">
-              {error}
-            </p>
+          {/* Status Message Area */}
+          {message && (
+            <div
+              className={`p-4 mb-6 border-l-4 rounded-lg transition-opacity duration-300 ${messageClass}`}
+              role="alert"
+            >
+              <p className="font-semibold">{isSuccess ? 'Success' : 'Error'}</p>
+              <p className="text-sm">{message}</p>
+            </div>
           )}
-          <div className="rounded-md shadow-sm -space-y-px">
+
+          {/* Login Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+
+            {/* Username Input */}
             <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+                Username
               </label>
               <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="doejohn"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white dark:bg-gray-700"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-150"
               />
             </div>
+
+            {/* Password Input */}
             <div>
-              <label htmlFor="password" className="sr-only">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Password
               </label>
               <input
+                type="password"
                 id="password"
                 name="password"
-                type="password"
-                autoComplete="current-password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="••••••••"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-white dark:bg-gray-700"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-150"
               />
             </div>
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:checked:bg-blue-600"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900 dark:text-gray-300"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
+            {/* Submit Button */}
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-offset-gray-900"
-              disabled={loading}
+              disabled={isLoading}
+              className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-sm font-bold text-white transition duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-offset-2 ${isLoading
+                  ? 'bg-blue-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 hover:scale-[1.01]'
+                }`}
             >
-              {loading ? (
-                <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
+              {isLoading ? (
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               ) : (
-                "Sign in"
+                'Log In'
               )}
             </button>
-          </div>
-        </form>
-        <div className="">
-                    <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            Don’t have account?{" "}
-            <Link
-              href="/register"
-              className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
-            >
-              Register here
-            </Link>
-          </p>
+          </form>
 
         </div>
       </div>
-    </div>
 
-</div>  );
-}
+    </div>);
+};
+
+export default App;
