@@ -40,7 +40,7 @@ const ServiceCard = ({ icon: Icon, title, description, layout }) => {
     : 'flex flex-col lg:flex-row items-center gap-4 bg-background h-full p-6'; 
 
   return (
-    <div className={`bg-[#f2f2f2] h-full p-6 ${isVertical ? 'lg:w-full' : ''}`}>
+    <div className={`bg-[#f2f2f2] dark:bg-dark-gray h-full p-6 ${isVertical ? 'lg:w-full' : ''}`}>
       <div className={innerClasses}>
         {/* icon part */}
         <div className="flex justify-center items-center aspect-square h-16 w-16 bg-primary text-white text-[24px] rounded-full">
@@ -49,10 +49,10 @@ const ServiceCard = ({ icon: Icon, title, description, layout }) => {
 
         {/* text part */}
         <div className={`flex flex-col gap-y-2 ${isVertical ? 'text-center' : ''}`}>
-          <h3 className='font-prime font-normal text-[28px] text-dark-gray leading-9'>
+          <h3 className='font-prime font-normal text-[28px] text-dark-gray dark:text-white leading-9'>
             {title}
           </h3>
-          <p className='font-second font-normal text-[12px] text-dark-gray'>
+          <p className='font-second font-normal text-[12px] text-dark-gray dark:text-light-gray'>
             {description}
           </p>
         </div>
