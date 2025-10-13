@@ -2,7 +2,7 @@ import React from 'react'
 
 const Bento = () => {
   return (
-    <div className='flex container gap-8 py-8 font-prime font-medium text-5xl uppercase'>
+    <div className='flex container gap-8 py-8 font-prime font-medium text-5xl text-white uppercase'>
       {/* formal */}
       <div className="flex w-1/2 flex-col gap-y-8">
         <div className="flex items-center w-full h-[374] bg-[url('/formal-woman.png')] bg-cover bg-center p-[30px] ">formal woman</div>
