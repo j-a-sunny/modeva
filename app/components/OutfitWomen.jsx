@@ -1,96 +1,86 @@
-'use client';
-import Image from 'next/image'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick'
-import React from 'react'
-import { HiOutlineArrowSmallRight, HiStar } from 'react-icons/hi2'
+import axios from 'axios'
+import { HiOutlineArrowSmallRight } from 'react-icons/hi2'
 import SingleProduct from './SingleProduct'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-
-let settings = {
-  dots: true,
-  infinite: true,
-  autoplay: true,
-  autoplaySpeed: 5000,
-  pauseOnHover: true,
-  slidesToShow: 4, // default for large screens
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 1280, // below xl
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 1024, // below lg
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 768, // below md
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-      },
-    },
-    {
-      breakpoint: 640, // below sm (phones)
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-};
-
 const OutfitWomen = () => {
+  const [products, setProducts] = useState([])
+
+  // ✅ Fetch API once when the component loads
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const options = {
+        method: 'GET',
+        url: 'https://api.freeapi.app/api/v1/public/randomproducts',
+        params: {
+          page: '1',
+          limit: '10',
+          inc: 'category,price,thumbnail,images,title,id',
+          query: 'women' // You can change this
+        },
+        headers: { accept: 'application/json' }
+      }
+
+      try {
+        const { data } = await axios.request(options)
+        const items = data.data?.data?.slice(0, 8) || [] // take only 8 products
+        setProducts(items)
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      }
+    }
+
+    fetchProducts()
+  }, [])
+
+  // ✅ React Slick settings
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 1024, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 640, settings: { slidesToShow: 2 } },
+    ],
+  }
 
   return (
-    <div className='container flex flex-col py-8 gap-y-8'>
+    <div className="container flex flex-col py-8 gap-y-8">
       <div>
-        <h2 className='font-prime font-medium text-[36px] md:text-[56px] lg:text-[76px] leading-tight md:leading-[1.1] uppercase'>the best dress for the best woman</h2>
+        <h2 className="font-prime font-medium text-[36px] md:text-[56px] lg:text-[76px] leading-tight md:leading-[1.1] uppercase">
+          the best dress for the best woman
+        </h2>
       </div>
 
-      {/* product carasoul div - Updated Grid */}
-      {/* < className="product grid gap-x-4 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4"> */}
-
-      {/* single product */}
+      {/* ✅ Slider with products */}
       <div className="slider-container w-full">
         <Slider {...settings}>
-          <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>        <div className="p-2">
-            <SingleProduct />
-          </div>
-
+          {products.map((product) => (
+            <div key={product.id} className="p-2">
+              <SingleProduct
+                title={product.title}
+                price={product.price}
+                image={product.thumbnail}
+                category={product.category}
+              />
+            </div>
+          ))}
         </Slider>
-
       </div>
 
-      <div className="flex"> {/* Added flex justify-center to center the button */}
+      <div className="flex">
         <button className="inline-flex items-center justify-center px-8 py-4 font-second font-semibold text-[16px] text-white bg-primary uppercase">
-          see more<HiOutlineArrowSmallRight />
+          see more <HiOutlineArrowSmallRight />
         </button>
       </div>
     </div>
